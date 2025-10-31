@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://b4wxhfqovhayo"]
+
+[ext_resource type="Shader" uid="uid://dvvfjfynejcxm" path="res://addons/balatro_debugger/shaders/outline.gdshader" id="1_me5ts"]
+[ext_resource type="FontFile" uid="uid://dacpdpiopt3c5" path="res://addons/balatro_debugger/fonts/m6x11plus.ttf" id="1_vkq37"]
+[ext_resource type="Script" uid="uid://byberlvphb4xs" path="res://addons/balatro_debugger/balatro_pop_effect.gd" id="1_ymcfj"]
+[ext_resource type="Script" uid="uid://dcdrqe231ev5l" path="res://addons/balatro_debugger/balatro_digit.gd" id="2_h6hu0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vxrw7"]
+shader = ExtResource("1_me5ts")
+shader_parameter/clr = Color(0, 0, 0, 0.388235)
+shader_parameter/type = 2
+shader_parameter/thickness = 1.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h6hu0"]
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_me5ts"]
+resource_local_to_scene = true
+script = ExtResource("1_ymcfj")
+metadata/_custom_type_script = "uid://byberlvphb4xs"
+
+[node name="BalatroDigit" type="RichTextLabel"]
+process_mode = 3
+texture_filter = 1
+material = SubResource("ShaderMaterial_vxrw7")
+clip_contents = false
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("1_vkq37")
+theme_override_font_sizes/normal_font_size = 18
+theme_override_styles/fill = SubResource("StyleBoxEmpty_h6hu0")
+theme_override_styles/background = SubResource("StyleBoxEmpty_h6hu0")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_h6hu0")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_h6hu0")
+bbcode_enabled = true
+text = "[pop]0000[/pop]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
+custom_effects = [SubResource("RichTextEffect_me5ts")]
+script = ExtResource("2_h6hu0")

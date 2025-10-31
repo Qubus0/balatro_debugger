@@ -1,0 +1,159 @@
+[gd_scene load_steps=15 format=3 uid="uid://cnwphtr3ku4ab"]
+
+[ext_resource type="Script" uid="uid://dv53sifdphq1u" path="res://addons/balatro_debugger/balatro_text.gd" id="1_c8j6b"]
+[ext_resource type="PackedScene" uid="uid://b4wxhfqovhayo" path="res://addons/balatro_debugger/balatro_digit.tscn" id="3_njq6q"]
+[ext_resource type="Script" uid="uid://byberlvphb4xs" path="res://addons/balatro_debugger/balatro_pop_effect.gd" id="4_r37kx"]
+[ext_resource type="Shader" uid="uid://c5en34dxikqpi" path="res://addons/balatro_debugger/shaders/balatro_fire.gdshader" id="5_4i4hd"]
+[ext_resource type="Texture2D" uid="uid://c62i00sncu7mo" path="res://addons/balatro_debugger/tile_sprite.png" id="6_qg252"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kbped"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ee4bf"]
+noise_type = 5
+frequency = 0.0226
+offset = Vector3(-153.85, 0, 0)
+fractal_octaves = 3
+domain_warp_enabled = true
+domain_warp_fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kbped"]
+seamless = true
+seamless_blend_skirt = 0.538
+noise = SubResource("FastNoiseLite_ee4bf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cmqsg"]
+resource_local_to_scene = true
+shader = ExtResource("5_4i4hd")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_kbped")
+shader_parameter/bottom_color = Color(0.984314, 0.976471, 0.678431, 1)
+shader_parameter/middle_color = Color(1, 0.560784, 0.270588, 1)
+shader_parameter/top_color = Color(0.935547, 0.370021, 0.257641, 1)
+shader_parameter/fire_alpha = 1.0
+shader_parameter/external_scroll = true
+shader_parameter/fire_speed = 0.2
+shader_parameter/fire_offset_y = 492.373
+shader_parameter/fire_aperture = 2.0
+shader_parameter/edge_fade = 0.35
+shader_parameter/pixel_size = 0.02
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c8j6b"]
+texture = ExtResource("6_qg252")
+texture_margin_left = 10.0
+texture_margin_right = 10.0
+expand_margin_top = 40.0
+expand_margin_bottom = 2.0
+axis_stretch_horizontal = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8u3kj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0nlk7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l1rfw"]
+
+[sub_resource type="RichTextEffect" id="RichTextEffect_fj5cn"]
+script = ExtResource("4_r37kx")
+metadata/_custom_type_script = "uid://byberlvphb4xs"
+
+[node name="BalatroButton" type="PanelContainer"]
+offset_right = 100.0
+offset_bottom = 46.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_kbped")
+script = ExtResource("1_c8j6b")
+
+[node name="BoxContainer" type="BoxContainer" parent="."]
+show_behind_parent = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+vertical = true
+
+[node name="Fire" type="PanelContainer" parent="BoxContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+material = SubResource("ShaderMaterial_cmqsg")
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_c8j6b")
+
+[node name="BoxContainer" type="BoxContainer" parent="BoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Margin" type="MarginContainer" parent="BoxContainer"]
+z_index = 1
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="BalatroText" type="BoxContainer" parent="BoxContainer/Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Spacer" type="MarginContainer" parent="BoxContainer/Margin/BalatroText"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="Button" parent="BoxContainer/Margin/BalatroText/Spacer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/h_separation = 0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8u3kj")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_8u3kj")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_8u3kj")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_8u3kj")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_8u3kj")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_8u3kj")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8u3kj")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_8u3kj")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8u3kj")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_8u3kj")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8u3kj")
+flat = true
+
+[node name="TextBefore" type="Label" parent="BoxContainer/Margin/BalatroText"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0nlk7")
+text = "Debugger("
+
+[node name="DigitBox" type="BoxContainer" parent="BoxContainer/Margin/BalatroText"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+alignment = 1
+vertical = true
+
+[node name="BackBox" type="PanelContainer" parent="BoxContainer/Margin/BalatroText/DigitBox"]
+self_modulate = Color(0.937255, 0.368627, 0.258824, 1)
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_l1rfw")
+
+[node name="BoxContainer" type="BoxContainer" parent="BoxContainer/Margin/BalatroText/DigitBox/BackBox"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="BalatroDigit" parent="BoxContainer/Margin/BalatroText/DigitBox/BackBox/BoxContainer" instance=ExtResource("3_njq6q")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0000"
+custom_effects = [SubResource("RichTextEffect_fj5cn")]
+
+[node name="TextAfter" type="Label" parent="BoxContainer/Margin/BalatroText"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_0nlk7")
+text = ")"

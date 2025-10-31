@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dftvinf7l5nyy"]
+
+[ext_resource type="Shader" uid="uid://cd0mci2fs6p5b" path="res://addons/balatro_debugger/shaders/balatro_swirl.gdshader" id="1_krkth"]
+
+[resource]
+shader = ExtResource("1_krkth")
+shader_parameter/polar_coordinates = false
+shader_parameter/polar_center = Vector2(0.5, 0.5)
+shader_parameter/polar_zoom = 1.0
+shader_parameter/polar_repeat = 1.0
+shader_parameter/spin_rotation = 0.0
+shader_parameter/spin_speed = 1.0
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/colour_1 = Color(0.129412, 0.156863, 0.196078, 1)
+shader_parameter/colour_2 = Color(0.290196, 0.454902, 0.603922, 1)
+shader_parameter/colour_3 = Color(0.129412, 0.14902, 0.180392, 1)
+shader_parameter/contrast = 2.0
+shader_parameter/spin_amount = 0.36
+shader_parameter/pixel_filter = 700.0

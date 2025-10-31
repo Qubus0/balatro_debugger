@@ -1,0 +1,17 @@
+
+Font m6x11plus by Daniel Linssen
+https://managore.itch.io/m6x11
+- free to use with attribution
+
+Swirl shader originally from Balatro by localthunk https://www.playbalatro.com/
+Ported to Godot by: Noobytube https://godotshaders.com/shader/balatro-paint-mix/
+Modifications: None
+
+Fire shader inspired by Balatro by localthunk
+Recreated in Godot by: xxidbr9 https://godotshaders.com/shader/balatro-fire-shader/ (cc0)
+Modifications: Pixelization, horizontal attenuation, TIME independent flame scroll
+
+Text shadow uses this outline shader by laffcat 
+https://godotshaders.com/shader/efficient-2d-pixel-outlines/ (cc0)
+
+Everything else covered by LICENSE.txt
