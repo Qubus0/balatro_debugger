@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dahui73efo6p"]
+[gd_scene format=3 uid="uid://dahui73efo6p"]
 
 [ext_resource type="Material" uid="uid://dftvinf7l5nyy" path="res://addons/balatro_debugger/shaders/swirl_material.tres" id="1_kb42u"]
+[ext_resource type="Script" uid="uid://wthp8kcslgiv" path="res://addons/balatro_debugger/logger_bg.gd" id="1_rltn8"]
 
-[node name="LoggerBg" type="AspectRatioContainer"]
+[node name="LoggerBg" type="AspectRatioContainer" unique_id=900500560]
 show_behind_parent = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,8 +13,9 @@ grow_vertical = 2
 mouse_filter = 2
 ratio = 2.0
 stretch_mode = 3
+script = ExtResource("1_rltn8")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1023647264]
 material = ExtResource("1_kb42u")
 layout_mode = 2
 mouse_filter = 2
