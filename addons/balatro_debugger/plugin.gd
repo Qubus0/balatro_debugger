@@ -13,31 +13,28 @@ func _enter_tree() -> void:
 	# wait for all editor nodes to be there
 	#await get_tree().root.ready # too early for some reason
 	await get_tree().create_timer(.2)
-	var dummy := Control.new() # only used to easily retrieve the other nodes
-	var bottom_panel_buttonbar: HBoxContainer = add_control_to_bottom_panel(dummy, "Dummy").get_parent()
-	var bottom_panel := dummy.get_parent()
-	remove_control_from_bottom_panel(dummy)
-	dummy.queue_free()
 
-	bottom_panel_buttonbar.clip_contents = false
-	bottom_panel_buttonbar.get_parent().clip_contents = false
+	var dock := EditorDock.new()
+	dock.default_slot = EditorDock.DOCK_SLOT_BOTTOM
+	add_dock(dock)
 
-	for button: Button in bottom_panel_buttonbar.get_children():
-		# probably breaks for editor translations
-		if button.text.contains("Debugger"):
-			var impersonator = BALATRO_TEXT.instantiate()
-			impersonator.impersonate_target = button
-			button_impersonators.append(impersonator)
+	var bottom_panel = dock.get_parent()
+	remove_dock(dock)
+	dock.free()
 
-	var logger_panel := bottom_panel.find_child("*EditorLog*", false, false)
-	# logger main rich text label
-	logger_text = (logger_panel.get_child(1).find_children("*", "RichTextLabel", false, false).front() as RichTextLabel)
-	bg = preload("res://addons/balatro_debugger/logger_bg.tscn").instantiate()
+	var logger_panel := bottom_panel.get_node(tr("Output"))
+	# logger main rich text label: HBoxContainer/VBoxContainer/RichTextLabel
+	logger_text = (logger_panel.get_child(1).get_child(0).get_child(0) as RichTextLabel)
+	bg = load("res://addons/balatro_debugger/logger_bg.tscn").instantiate()
 	logger_text.add_child(bg)
 	logger_text.add_theme_stylebox_override(&"normal", StyleBoxEmpty.new())
 
-	# editor log panel > last child is the right side button area, all buttons
 	var th := EditorInterface.get_editor_theme()
+
+	bg.set_first_color(th.get_color("base_color", "Editor"))
+	bg.set_second_color(th.get_color("accent_color", "Editor"))
+
+	# editor log panel > last child is the right side button area, all buttons
 	var log_button_icon_colors := [
 		th.get_color("font_color", "Editor"),
 		th.get_color("error_color", "Editor"),
@@ -45,7 +42,8 @@ func _enter_tree() -> void:
 		th.get_color("font_color", "Editor"),
 	]
 	var button_index := 0
-	for button in logger_panel.get_child(-1).find_children("*", "Button", false, false):
+	# HBoxContainer/VBoxContainer/HFlowContainer/HBoxContainer/Button(s)
+	for button in logger_panel.get_child(1).get_child(0).get_child(1).get_child(-1).get_children():
 		var impersonator = BALATRO_BUTTON.instantiate()
 		impersonator.impersonate_target = button
 		impersonator.base_color = log_button_icon_colors[button_index]
